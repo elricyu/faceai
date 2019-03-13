@@ -2,13 +2,14 @@
 #图片检测 - OpenCV版本
 import cv2
 import datetime
-import time
+from os.path import realpath,normpath
 
 filepath = "img/xingye-1.png"
 # OpenCV人脸识别分类器
-classifier = cv2.CascadeClassifier(
-    "C:\Python36\Lib\site-packages\opencv-master\data\haarcascades\haarcascade_frontalface_default.xml"
-)
+xmlPath = normpath(
+    realpath(cv2.__file__) + '../../../../../share/OpenCV/haarcascades/haarcascade_frontalface_default.xml')
+
+classifier = cv2.CascadeClassifier(xmlPath)
 
 # 程序开始时间
 startTime = datetime.datetime.now()

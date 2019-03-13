@@ -5,7 +5,7 @@
 import cv2
 import dlib
 import numpy as np
-import time
+from os.path import realpath,normpath
 
 # img = cv2.imread(path)
 
@@ -82,9 +82,13 @@ def hist(img):
     return img
 
 
-classifier = cv2.CascadeClassifier(
-    "C:\Python36\Lib\site-packages\opencv-master\data\haarcascades\haarcascade_eye.xml"  #haarcascade_eye_tree_eyeglasses
-)
+
+# OpenCV眼睛识别分类器
+xmlPath = normpath(
+    realpath(cv2.__file__) + '../../../../../share/OpenCV/haarcascades/haarcascade_eye.xml')
+print(xmlPath)
+
+classifier = cv2.CascadeClassifier(xmlPath)
 
 
 def discern(img, counter):

@@ -5,11 +5,15 @@ import cv2
 from keras.models import load_model
 import numpy as np
 import chineseText
+from os.path import realpath,normpath
 
 img = cv2.imread("img/gather.png")
-face_classifier = cv2.CascadeClassifier(
-    "C:\Python36\Lib\site-packages\opencv-master\data\haarcascades\haarcascade_frontalface_default.xml"
-)
+# OpenCV人脸识别分类器
+xmlPath = normpath(
+    realpath(cv2.__file__) + '../../../../../share/OpenCV/haarcascades/haarcascade_frontalface_default.xml')
+
+face_classifier = cv2.CascadeClassifier(xmlPath)
+
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 faces = face_classifier.detectMultiScale(
     gray, scaleFactor=1.2, minNeighbors=3, minSize=(140, 140))

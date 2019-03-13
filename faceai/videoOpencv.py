@@ -1,15 +1,14 @@
 #coding=utf-8
 #视频人脸检测类 - OpenCV版本
 import cv2
-
+from os.path import realpath, normpath
 
 # 图片识别方法
 def discern(img):
+    xmlPath = normpath(realpath(cv2.__file__) + '../../../../../share/OpenCV/haarcascades/haarcascade_frontalface_default.xml')
     grayImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # OpenCV人脸识别分类器
-    classifier = cv2.CascadeClassifier(
-        "C:\Python36\Lib\site-packages\opencv-master\data\haarcascades\haarcascade_frontalface_default.xml"
-    )
+    classifier = cv2.CascadeClassifier(xmlPath)
     color = (0, 255, 0)  # 定义绘制颜色
     # 调用识别人脸
     faceRects = classifier.detectMultiScale(

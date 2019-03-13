@@ -2,6 +2,7 @@
 #图片检测 - Dlib版本
 import cv2
 import dlib
+from os.path import realpath,normpath
 
 path = "img/ag.png"
 img = cv2.imread(path)
@@ -9,10 +10,13 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 #人脸分类器
 detector = dlib.get_frontal_face_detector()
+
+#下载地址：http://dlib.net/files/
+#下载文件：shape_predictor_68_face_landmarks.dat.bz2
+#在python的site-packages目录下新建dlib-data目录，并将解压shape_predictor_68_face_landmarks.dat文件放入dblib-data目录
+datPath = normpath(realpath(dlib.__file__)+"../../dlib-data/shape_predictor_68_face_landmarks.dat")
 # 获取人脸检测器
-predictor = dlib.shape_predictor(
-    "C:\\Python36\\Lib\\site-packages\\dlib-data\\shape_predictor_68_face_landmarks.dat"
-)
+predictor = dlib.shape_predictor(datPath)
 
 dets = detector(gray, 1)
 for face in dets:

@@ -1,12 +1,13 @@
 #coding=utf-8
 #头像特效合成
 import cv2
+from os.path import realpath,normpath
 
 # OpenCV人脸识别分类器
-classifier = cv2.CascadeClassifier(
-    "C:\Python36\Lib\site-packages\opencv-master\data\haarcascades\haarcascade_frontalface_default.xml"
-)
+xmlPath = normpath(
+    realpath(cv2.__file__) + '../../../../../share/OpenCV/haarcascades/haarcascade_frontalface_default.xml')
 
+classifier = cv2.CascadeClassifier(xmlPath)
 img = cv2.imread("img/ag-3.png")  # 读取图片
 imgCompose = cv2.imread("img/compose/maozi-1.png")
 

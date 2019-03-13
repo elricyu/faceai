@@ -6,6 +6,7 @@ from keras.models import load_model
 import numpy as np
 import chineseText
 import datetime
+from os.path import realpath,normpath
 
 startTime = datetime.datetime.now()
 emotion_classifier = load_model(
@@ -23,10 +24,15 @@ emotion_labels = {
     6: '平静'
 }
 
-img = cv2.imread("img/emotion/emotion.png")
-face_classifier = cv2.CascadeClassifier(
-    "C:\Python36\Lib\site-packages\opencv-master\data\haarcascades\haarcascade_frontalface_default.xml"
-)
+# OpenCV人脸识别分类器
+xmlPath = normpath(
+    realpath(cv2.__file__) + '../../../../../share/OpenCV/haarcascades/haarcascade_frontalface_default.xml')
+
+face_classifier = cv2.CascadeClassifier(xmlPath)
+
+
+img = cv2.imread("img/emotion/emotion-1.jpg")
+
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 faces = face_classifier.detectMultiScale(
     gray, scaleFactor=1.2, minNeighbors=3, minSize=(40, 40))
